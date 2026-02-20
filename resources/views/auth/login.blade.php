@@ -175,10 +175,10 @@
 
             <button type="submit" class="btn btn-login">Login</button>
 
-            {{-- <button type="button" class="btn btn-forgot"
+            <button type="button" class="btn btn-forgot"
                 onclick="window.location='{{ route('forgot.password') }}'">
                 Forgot Password
-            </button> --}}
+            </button>
         </form>
 
         <div class="register-link">

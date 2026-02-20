@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
+    <title>Reset Password</title>
 
     <style>
         body {
@@ -17,35 +17,25 @@
             align-items: center;
         }
 
-        .forgot-card {
+        .reset-card {
             background: #fff;
-            width: 420px;
+            width: 450px;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
         }
 
-        .forgot-card h2 {
+        .reset-card h2 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: #333;
         }
 
-        .forgot-card p {
+        .reset-card p {
             text-align: center;
             color: #555;
             font-size: 14px;
             margin-bottom: 20px;
-        }
-
-        .alert-success {
-            background: #d1e7dd;
-            color: #0f5132;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 14px;
-            text-align: center;
         }
 
         .alert-error {
@@ -58,13 +48,6 @@
             text-align: center;
         }
 
-        .error-text {
-            color: red;
-            font-size: 13px;
-            margin-bottom: 10px;
-            display: block;
-        }
-
         label {
             font-weight: bold;
             font-size: 14px;
@@ -75,6 +58,7 @@
             width: 100%;
             padding: 12px;
             margin-top: 8px;
+            margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 8px;
             outline: none;
@@ -95,15 +79,14 @@
             cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
-            margin-top: 15px;
         }
 
-        .btn-send {
+        .btn-reset {
             background: #0d6efd;
             color: white;
         }
 
-        .btn-send:hover {
+        .btn-reset:hover {
             background: #084298;
         }
 
@@ -127,47 +110,32 @@
 
 <body>
 
-    <div class="forgot-card">
-        <h2>Forgot Password</h2>
+    <div class="reset-card">
+        <h2>Reset Password</h2>
 
-        <p>Enter your email address and we will send you a password reset link.</p>
+        <p>Enter your email and set a new password.</p>
 
-        {{-- Success Message --}}
-        @if(session('message'))
-            <div class="alert-success">
-                {{ session('message') }}
-            </div>
-        @endif
-
-        {{-- Error Message --}}
         @if(session('error'))
             <div class="alert-error">
                 {{ session('error') }}
             </div>
         @endif
 
-        {{-- Validation Errors --}}
-        @if ($errors->any())
-            <div class="alert-error">
-                <ul style="margin:0; padding-left:18px;">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form action="{{ route('forgot.password.post') }}" method="POST">
+        <form action="{{ route('reset.password.post') }}" method="POST">
             @csrf
 
+            <input type="hidden" name="token" value="{{ $token }}">
+
             <label>Email Address</label>
-            <input type="email" name="email" value="{{ old('email') }}" placeholder="Enter your email">
+            <input type="email" name="email" placeholder="Enter your email" required>
 
-            @error('email')
-                <span class="error-text">{{ $message }}</span>
-            @enderror
+            <label>New Password</label>
+            <input type="password" name="password" placeholder="Enter new password" required>
 
-            <button type="submit" class="btn btn-send">Send Reset Link</button>
+            <label>Confirm Password</label>
+            <input type="password" name="password_confirmation" placeholder="Confirm password" required>
+
+            <button type="submit" class="btn btn-reset">Reset Password</button>
         </form>
 
         <div class="back-login">
