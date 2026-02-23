@@ -1,180 +1,179 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+<!--begin::Head-->
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0d6efd, #6f42c1);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .register-card {
-            background: #fff;
-            width: 450px;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .register-card h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .alert-success {
-            background: #d1e7dd;
-            color: #0f5132;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .alert-error {
-            background: #f8d7da;
-            color: #842029;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        label {
-            font-weight: bold;
-            font-size: 14px;
-            color: #444;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            outline: none;
-            font-size: 14px;
-        }
-
-        input:focus {
-            border-color: #0d6efd;
-            box-shadow: 0px 0px 5px rgba(13, 110, 253, 0.5);
-        }
-
-        .error-text {
-            color: red;
-            font-size: 13px;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .btn-register {
-            background: #0d6efd;
-            color: white;
-        }
-
-        .btn-register:hover {
-            background: #084298;
-        }
-
-        .login-link {
-            text-align: center;
-            margin-top: 18px;
-            font-size: 14px;
-        }
-
-        .login-link a {
-            text-decoration: none;
-            color: #0d6efd;
-            font-weight: bold;
-        }
-
-        .login-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AdminLTE 4 | Register Page</title>
+    <!--begin::Accessibility Meta Tags-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
+    <!--end::Accessibility Meta Tags-->
+    <!--begin::Primary Meta Tags-->
+    <meta name="title" content="AdminLTE 4 | Register Page" />
+    <meta name="author" content="ColorlibHQ" />
+    <meta name="description"
+        content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS. Fully accessible with WCAG 2.1 AA compliance." />
+    <meta name="keywords"
+        content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard, accessible admin panel, WCAG compliant" />
+    <!--end::Primary Meta Tags-->
+    <!--begin::Accessibility Features-->
+    <!-- Skip links will be dynamically added by accessibility.js -->
+    <meta name="supported-color-schemes" content="light dark" />
+    {{-- <link rel="preload" href="../css/adminlte.css" as="style" /> --}}
+    <!--end::Accessibility Features-->
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
+        integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous" media="print"
+        onload="this.media='all'" />
+    <!--end::Fonts-->
+    <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/styles/overlayscrollbars.min.css"
+        crossorigin="anonymous" />
+    <!--end::Third Party Plugin(OverlayScrollbars)-->
+    <!--begin::Third Party Plugin(Bootstrap Icons)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+        crossorigin="anonymous" />
+    <!--end::Third Party Plugin(Bootstrap Icons)-->
+    <!--begin::Required Plugin(AdminLTE)-->
+    <link rel="stylesheet" href="{{ asset('assets/css/adminlte.css') }}" />
+    <!--end::Required Plugin(AdminLTE)-->
 </head>
+<!--end::Head-->
+<!--begin::Body-->
 
-<body>
+<body class="register-page bg-body-secondary">
+    <div class="register-box">
+        <div class="register-logo">
+            <a href=""><b>Admin</b>LTE</a>
+        </div>
+        <!-- /.register-logo -->
+        <div class="card">
+            <div class="card-body register-card-body">
+                <p class="register-box-msg"></p>
+                <form method="POST" action="{{ route('register.store') }}">
+                    @csrf
 
-    <div class="register-card">
-        <h2>Create Account</h2>
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="text" name="name" value="{{ old('name') }}"
+                                class="form-control @error('name') is-invalid @enderror" placeholder="Name" />
+                            <div class="input-group-text">
+                                <span class="bi bi-person"></span>
+                            </div>
+                        </div>
 
-        {{-- Success Message --}}
-        @if(session('message'))
-            <div class="alert-success">
-                {{ session('message') }}
+                        @error('name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="email" name="email" value="{{ old('email') }}"
+                                class="form-control @error('email') is-invalid @enderror" placeholder="Email" />
+                            <div class="input-group-text">
+                                <span class="bi bi-envelope"></span>
+                            </div>
+                        </div>
+
+                        @error('email')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="password" name="password"
+                                class="form-control @error('password') is-invalid @enderror" placeholder="Password" />
+                            <div class="input-group-text">
+                                <span class="bi bi-lock-fill"></span>
+                            </div>
+                        </div>
+
+                        @error('password')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="password" name="password_confirmation"
+                                class="form-control @error('password_confirmation') is-invalid @enderror"
+                                placeholder="Confirm Password" />
+                            <div class="input-group-text">
+                                <span class="bi bi-lock-fill"></span>
+                            </div>
+                        </div>
+
+                        @error('password')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <!--begin::Row-->
+                    <div class="row">
+                        <div class="col-8">
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!--end::Row-->
+                </form>
+                <div class="social-auth-links text-center mb-3 d-grid gap-2">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-primary">
+                        <i class="bi bi-facebook me-2"></i> Sign in using Facebook
+                    </a>
+                    <a href="#" class="btn btn-danger">
+                        <i class="bi bi-google me-2"></i> Sign in using Google+
+                    </a>
+                </div>
+                <!-- /.social-auth-links -->
+                <div class="login-link">
+                    Already have an account?
+                    <a href="{{ route('login') }}">Login</a>
+                </div>
             </div>
-        @endif
-
-        {{-- Validation Errors --}}
-        @if ($errors->any())
-            <div class="alert-error">
-                <ul style="margin:0; padding-left:18px;">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('register.store') }}">
-            @csrf
-
-            <label>Full Name</label>
-            <input type="text" name="name" value="{{ old('name') }}" placeholder="Enter your name">
-
-            @error('name')
-                <span class="error-text">{{ $message }}</span>
-            @enderror
-
-            <label>Email Address</label>
-            <input type="email" name="email" value="{{ old('email') }}" placeholder="Enter your email">
-
-            @error('email')
-                <span class="error-text">{{ $message }}</span>
-            @enderror
-            
-            <label>Password</label>
-            <input type="password" name="password" placeholder="Enter password">
-
-            @error('password')
-                <span class="error-text">{{ $message }}</span>
-            @enderror
-
-            <label>Confirm Password</label>
-            <input type="password" name="password_confirmation" placeholder="Confirm password">
-
-            <button type="submit" class="btn btn-register">Register</button>
-        </form>
-
-        <div class="login-link">
-            Already have an account?
-            <a href="{{ route('login') }}">Login</a>
+            <!-- /.register-card-body -->
         </div>
     </div>
-
+    <!-- /.register-box -->
+    <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
+        crossorigin="anonymous"></script>
+    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous">
+    </script>
+    <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    <script src="../js/adminlte.js"></script>
+    <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+    <script>
+        const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
+        const Default = {
+            scrollbarTheme: 'os-theme-light',
+            scrollbarAutoHide: 'leave',
+            scrollbarClickScroll: true,
+        };
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
+            if (sidebarWrapper && OverlayScrollbarsGlobal?.OverlayScrollbars !== undefined) {
+                OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+                    scrollbars: {
+                        theme: Default.scrollbarTheme,
+                        autoHide: Default.scrollbarAutoHide,
+                        clickScroll: Default.scrollbarClickScroll,
+                    },
+                });
+            }
+        });
+    </script>
+    <!--end::OverlayScrollbars Configure-->
+    <!--end::Script-->
 </body>
+<!--end::Body-->
+
 </html>
