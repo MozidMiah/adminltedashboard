@@ -43,8 +43,8 @@ class ForgotPasswordController extends Controller
             'created_at' => Carbon::now()
         ]);
         // Send Mail
-        Mail::to($request->email)->send(new ResetPasswordMail($token));
-        // SendWelcomeEmail::dispatch($request->email, $token);
+        // Mail::to($request->email)->send(new ResetPasswordMail($token));
+        SendWelcomeEmail::dispatch($request->email, $token);
 
         return back()->with('success', 'Reset password link has been sent to your email!');
     }
@@ -63,6 +63,8 @@ class ForgotPasswordController extends Controller
         'token' => 'required',
         'email' => 'required|email|exists:users,email',
         'password' => 'required|min:6|confirmed',
+        'password_confirmation' => 'required',
+
     ], [
         'token.required' => 'Token missing!',
         'email.required' => 'Email is required!',
