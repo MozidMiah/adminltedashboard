@@ -1,0 +1,83 @@
+@extends('admin.dashboard')
+
+@section('content')
+    @if (session('message'))
+        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+            {{ session('message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="col-md-5 align-self-center">
+                            <h4 class="card-title">Data Table</h4>
+                            <h6 class="card-subtitle">Data table example</h6>
+                        </div>
+                        <div class="col-md-7 align-self-center text-end">
+                            <div class="d-flex justify-content-end align-items-center">
+                                <a href="{{ route('category.create') }}" type="button"
+                                    class="btn btn-info d-none d-lg-block m-l-15 text-white"><i
+                                        class="fa fa-plus-circle"></i> Create New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive m-t-40">
+                        <table id="myTable" class="table table-striped border">
+                            <thead>
+                                <tr>
+                                    <th>SL NO</th>
+                                    <th>Category Name</th>
+                                    <th>Category Description</th>
+                                    <th>Category Image</th>
+                                    <th>Publication Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($categories as $category)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->description }}</td>
+                                        <td><img src="{{ asset($category->image) }}" alt="{{ $category->name }}"
+                                                height="50" width="80" /></td>
+                                        <td>{{ $category->status == 1 ? 'Published' : 'Unpublished' }}</td>
+                                        <td>
+                                            @if ($category->status == 2)
+                                                <a href="{{ route('category.status', $category->id) }}"
+                                                    class="btn btn-success btn-sm">
+                                                    <i class="ti-arrow-up"></i>
+                                                </a>
+                                            @else
+                                                <a href="{{ route('category.status', $category->id) }}"
+                                                    class="btn btn-warning btn-sm">
+                                                    <i class="ti-arrow-down"></i>
+                                                </a>
+                                            @endif
+
+                                            <a href="{{ route('category.edit', $category->id) }}"
+                                                class="btn btn-info btn-sm">
+                                                <i class="ti-pencil"></i>
+                                            </a>
+
+                                            <a href="{{ route('category.delete', $category->id) }}"
+                                                class="btn btn-danger btn-sm" onclick="return confirm('Are You Sure?');">
+                                                <i class="ti-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+@endsection
